@@ -10,6 +10,7 @@ const Index = () => {
       .post("/api/hello", { data: "Hi there" })
       .then((res) => {
         console.log(res);
+        setName(res.data.name);
       })
       .catch((e) => {
         console.log(e);
