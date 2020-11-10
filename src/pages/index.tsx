@@ -1,56 +1,29 @@
-import {
-  Link as ChakraLink,
-  Text,
-  Code,
-  List,
-  ListIcon,
-  ListItem,
-} from '@chakra-ui/core'
-import { CheckCircleIcon, LinkIcon } from '@chakra-ui/icons'
+import { Link as ChakraLink, Heading, Box } from "@chakra-ui/core";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
-import { Hero } from '../components/Hero'
-import { Container } from '../components/Container'
-import { Main } from '../components/Main'
-import { DarkModeSwitch } from '../components/DarkModeSwitch'
-import { CTA } from '../components/CTA'
-import { Footer } from '../components/Footer'
+const Index = () => {
+  const [name, setName] = useState("");
 
-const Index = () => (
-  <Container height="100vh">
-    <Hero />
-    <Main>
-      <Text>
-        Example repository of <Code>Next.js</Code> + <Code>chakra-ui</Code> +{' '}
-        <Code>typescript</Code>.
-      </Text>
+  useEffect(() => {
+    axios
+      .post("/api/hello", { data: "Hi there" })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, []);
 
-      <List spacing={3} my={0}>
-        <ListItem>
-          <ListIcon as={CheckCircleIcon} color="green.500" />
-          <ChakraLink
-            isExternal
-            href="https://chakra-ui.com"
-            flexGrow={1}
-            mr={2}
-          >
-            Chakra UI <LinkIcon />
-          </ChakraLink>
-        </ListItem>
-        <ListItem>
-          <ListIcon as={CheckCircleIcon} color="green.500" />
-          <ChakraLink isExternal href="https://nextjs.org" flexGrow={1} mr={2}>
-            Next.js <LinkIcon />
-          </ChakraLink>
-        </ListItem>
-      </List>
-    </Main>
+  return (
+    <Box height="100vh">
+      <Heading>Name received from api is {name}</Heading>
+      <Heading as="h3" size="md" mt={10}>
+        View on <ChakraLink isExternal>codesandbox</ChakraLink>
+      </Heading>
+    </Box>
+  );
+};
 
-    <DarkModeSwitch />
-    <Footer>
-      <Text>Next ❤️ Chakra</Text>
-    </Footer>
-    <CTA />
-  </Container>
-)
-
-export default Index
+export default Index;
